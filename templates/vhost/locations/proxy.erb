@@ -8,6 +8,9 @@
 <% if @proxy_set_body -%>
     proxy_set_body        <%= @proxy_set_body %>;
 <% end -%>
+<% if @proxy_ssl_verify -%>
+    proxy_ssl_verify      <%= @proxy_ssl_verify %>;
+<% end -%>
 <% if @proxy_buffering -%>
     proxy_buffering       <%= @proxy_buffering %>;
 <% end -%>

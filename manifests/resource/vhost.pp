@@ -110,6 +110,7 @@
 #   [*proxy_method*]            - If defined, overrides the HTTP method of the
 #     request to be passed to the backend.
 #   [*proxy_set_body*]          - If defined, sets the body passed to the backend.
+#   [*proxy_ssl_verify*]        - Ignore any SSL warnings to the upstream side
 #   [*auth_basic*]              - This directive includes testing name and
 #      password with HTTP Basic Authentication.
 #   [*auth_basic_user_file*]    - This directive sets the htpasswd filename for
@@ -233,6 +234,7 @@ define nginx::resource::vhost (
   $proxy_method                 = undef,
   $proxy_set_body               = undef,
   $proxy_buffering              = undef,
+  $proxy_ssl_verify             = undef,
   $resolver                     = [],
   $fastcgi                      = undef,
   $fastcgi_params               = "${::nginx::config::conf_dir}/fastcgi_params",
@@ -408,6 +410,9 @@ define nginx::resource::vhost (
   }
   if ($proxy_set_body != undef) {
     validate_string($proxy_set_body)
+  }
+  if ($proxy_ssl_verify != undef) {
+    validate_bool($proxy_ssl_verify)
   }
   if ($proxy_buffering != undef) {
     validate_re($proxy_buffering, '^(on|off)$')
